@@ -4,6 +4,7 @@
   "author": "liuzhibing",
   "private": false,
   "scripts": {
+    "start": "vue-cli-service serve --open --port=80",
     "dev": "vue-cli-service serve --open --port=80",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
