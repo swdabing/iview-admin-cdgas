@@ -49,5 +49,5 @@ export default {
   RQ_RCVBL_DTL_H: '氣費賬單',
   diy: '個人diy',
   bim: '智慧建築',
-  monitor: '溫濕度監控'
+  monitor: '環境監測'
 }

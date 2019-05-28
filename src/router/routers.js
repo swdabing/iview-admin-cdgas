@@ -73,7 +73,7 @@ export default [
         path: 'sms_gmp',
         name: 'sms_gmp',
         meta: {
-          icon: 'md-grid',
+          icon: 'ios-chatbubbles',
           href: 'http://172.16.126.18:8080/',
           title: 'GMP平台'
         }
@@ -103,7 +103,7 @@ export default [
         name: 'monitor',
         meta: {
           icon: 'ios-thermometer-outline',
-          title: '温湿度监测'
+          title: '环境监测'
         },
         component: () => import('@/view/components/tables/monitor.vue')
       }
