@@ -47,5 +47,7 @@ export default {
   sms: 'Short Message Platform',
   sms_gmp: 'GMP Platform',
   RQ_RCVBL_DTL_H: 'RQ_RCVBL_DTL_H',
-  bim: 'bim'
+  diy: 'diy',
+  bim: 'bim',
+  monitor: 'monitor'
 }

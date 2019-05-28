@@ -82,7 +82,7 @@ export default [
   },
   {
     path: '',
-    name: '3d',
+    name: 'diy',
     meta: {
       title: '智慧燃气',
       icon: 'md-cube'
@@ -97,6 +97,15 @@ export default [
           title: '智慧建筑'
         },
         component: () => import('@/view/components/tables/bim.vue')
+      },
+      {
+        path: 'monitor',
+        name: 'monitor',
+        meta: {
+          icon: 'ios-thermometer-outline',
+          title: '温湿度监测'
+        },
+        component: () => import('@/view/components/tables/monitor.vue')
       }
     ]
   },

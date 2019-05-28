@@ -47,5 +47,7 @@ export default {
   sms: '短信平臺',
   sms_gmp: 'GMP平臺',
   RQ_RCVBL_DTL_H: '氣費賬單',
-  bim: '智慧建築'
+  diy: '個人diy',
+  bim: '智慧建築',
+  monitor: '溫濕度監控'
 }
