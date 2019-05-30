@@ -49,5 +49,6 @@ export default {
   RQ_RCVBL_DTL_H: '气费账单',
   diy: '个人diy',
   bim: '智慧建筑',
-  monitor: '环境监测'
+  monitor: '环境监测',
+  camera: '视频监控'
 }

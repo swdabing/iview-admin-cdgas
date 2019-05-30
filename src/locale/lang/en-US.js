@@ -49,5 +49,6 @@ export default {
   RQ_RCVBL_DTL_H: 'RQ_RCVBL_DTL_H',
   diy: 'diy',
   bim: 'bim',
-  monitor: 'monitor'
+  monitor: 'monitor',
+  camera: 'camera'
 }

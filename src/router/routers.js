@@ -106,6 +106,15 @@ export default [
           title: '环境监测'
         },
         component: () => import('@/view/components/tables/monitor.vue')
+      },
+      {
+        path: 'camera',
+        name: 'camera',
+        meta: {
+          icon: 'md-videocam',
+          title: '视频监控'
+        },
+        component: () => import('@/view/components/tables/camera.vue')
       }
     ]
   },
