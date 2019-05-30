@@ -11,7 +11,7 @@ export default {
   name: 'backBtnGroup',
   data () {
     return {
-      second: 3,
+      second: 0,
       timer: null
     }
   },
@@ -26,10 +26,13 @@ export default {
     }
   },
   mounted () {
-    this.timer = setInterval(() => {
-      if (this.second === 0) this.backHome()
-      else this.second--
-    }, 1000)
+    if (this.second === 0) this.backHome()
+    else {
+      this.timer = setInterval(() => {
+        if (this.second === 0) this.backHome()
+        else this.second--
+      }, 1000)
+    }
   },
   beforeDestroy () {
     clearInterval(this.timer)
