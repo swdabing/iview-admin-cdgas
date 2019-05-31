@@ -3,7 +3,7 @@ import axios from '@/libs/api.request'
 export const login = ({ userName, password }) => {
   return axios.request({
     url: // 'login?env=CIS7021SESSION&user=' + userName.toUpperCase() + '&pwd=' + password,
-    'https://mapp.crcgas.com:18443/process/notify/crcgas_cis@fiberhome/login?data={"USER":"' + userName.toUpperCase() + '","PWD":"' + password + '"}',
+    'http://mapp.crcgas.com:18001/process/notify/crcgas_cis@fiberhome/login?data={"USER":"' + userName.toUpperCase() + '","PWD":"' + password + '"}',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     }// ,
