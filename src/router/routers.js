@@ -96,7 +96,7 @@ export default [
           icon: 'ios-home',
           title: '智慧建筑'
         },
-        component: () => import('@/view/components/tables/bim.vue')
+        component: () => import('@/view/components/diy/bim.vue')
       },
       {
         path: 'monitor',
@@ -105,7 +105,7 @@ export default [
           icon: 'ios-thermometer-outline',
           title: '环境监测'
         },
-        component: () => import('@/view/components/tables/monitor.vue')
+        component: () => import('@/view/components/diy/monitor.vue')
       },
       {
         path: 'camera',
@@ -114,7 +114,7 @@ export default [
           icon: 'md-videocam',
           title: '视频监控'
         },
-        component: () => import('@/view/components/tables/camera.vue')
+        component: () => import('@/view/components/diy/camera.vue')
       }
     ]
   },
