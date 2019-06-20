@@ -1,7 +1,7 @@
 <template>
   <div>
     <Card>
-      <tables ref="tables" searchable search-place="top" :columns='RQ_RCVBL_DTL_H_COLUMNS' stripe></tables>
+      <tables ref="tables" searchable search-place="top" :columns='COLUMNS' stripe></tables>
       <Button style="margin: 10px 0;" type="primary" @click="exportExcel">导出为Csv文件</Button>
     </Card>
 
@@ -23,7 +23,7 @@ export default {
     return {
       modal1: false,
       MSG: '',
-      RQ_RCVBL_DTL_H_COLUMNS: [
+      COLUMNS: [
         /*
         {
           title: '序号',
