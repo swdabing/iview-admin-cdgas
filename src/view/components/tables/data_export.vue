@@ -23,8 +23,7 @@ export default {
     return {
       modal1: false,
       MSG: '',
-      SQL_NAME: '',
-      SQL_VALUE: '',
+      row: {},
       COLUMNS: [
         {
           title: '序号',
@@ -36,7 +35,7 @@ export default {
         },
         {
           title: '状态',
-          key: 'SQL_VALUE',
+          key: 'SQL_GROUP',
           render: (h, params) => {
             const row = params.row
             const color = 'primary'
@@ -52,8 +51,7 @@ export default {
                 nativeOn: {
                   click: (e) => {
                     this.modal1 = true
-                    this.SQL_NAME = row.SQL_NAME
-                    this.SQL_VALUE = row.SQL_VALUE
+                    this.row = row
                     this.MSG = '是否导出数据【' + row.SQL_NAME + '】？'
                   }
                 }
@@ -68,9 +66,8 @@ export default {
   methods: {
     ok () {
       let host = 'http://172.16.102.69:8080'
-      let url = host + '/export?type=file&fileName=' + this.SQL_NAME + '&sql=' + encodeURIComponent(this.SQL_VALUE)
+      let url = host + '/export?type=file&fileName=' + this.row.SQL_NAME + '&sql=' + encodeURIComponent(this.row.SQL_VALUE)
       window.open(url)
-      // window.location.href = url
     },
     cancel () {
       // this.$Message.info('Clicked cancel')
@@ -82,7 +79,7 @@ export default {
     }
   },
   mounted () {
-    this.$refs.tables.setSql('select * from SQLS where 1=1',
+    this.$refs.tables.setSql('select * from MID_SQLS where 1=1',
       ' order by cast(TIMESTAMP AS int)')
   }
 }
