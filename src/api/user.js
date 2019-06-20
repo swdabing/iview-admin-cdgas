@@ -48,11 +48,11 @@ export const logout = (token) => {
 }
 
 export const getUnreadCount = () => {
-  return axios.request({
-    url: 'message/count',
-    // url: 'https://www.baidu.com/',
-    method: 'get'
-  })
+  // return axios.request({
+  //   url: 'message/count',
+  //   method: 'get'
+  // })
+  return 0
 }
 
 export const getMessage = () => {
