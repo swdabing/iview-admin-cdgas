@@ -52,7 +52,7 @@ export default [
     ]
   },
   {
-    path: '',
+    path: '/sms',
     name: 'sms',
     meta: {
       title: '短信平台',
@@ -81,7 +81,7 @@ export default [
     ]
   },
   {
-    path: '',
+    path: '/middleware',
     name: 'middleware',
     meta: {
       title: 'CIS中间件',
@@ -110,7 +110,7 @@ export default [
     ]
   },
   {
-    path: '',
+    path: '/diy',
     name: 'diy',
     meta: {
       title: '智慧燃气',
