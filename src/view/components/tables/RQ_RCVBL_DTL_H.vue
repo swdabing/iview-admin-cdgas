@@ -23,13 +23,8 @@ export default {
     return {
       modal1: false,
       MSG: '',
+      row: {},
       COLUMNS: [
-        /*
-        {
-          title: '序号',
-          key: 'RN'
-        },
-        */
         {
           title: '手机号',
           key: 'CONT_CHANL_NO'
@@ -57,6 +52,7 @@ export default {
                 nativeOn: {
                   click: (e) => {
                     this.modal1 = true
+                    this.row = row
                     this.MSG = '是否发送气费账单短信到' + row.CONT_CHANL_NO + '？'
                   }
                 }
@@ -88,7 +84,7 @@ export default {
   },
   methods: {
     ok () {
-      this.$Message.info('手动发送功能未实现')
+      this.$Message.info(this.row.CONT_CHANL_NO + '手动发送功能未实现')
     },
     cancel () {
       // this.$Message.info('Clicked cancel')
