@@ -82,6 +82,35 @@ export default [
   },
   {
     path: '',
+    name: 'middleware',
+    meta: {
+      title: 'CIS中间件',
+      icon: 'md-link'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'data_export',
+        name: 'data_export',
+        meta: {
+          icon: 'ios-list-box-outline',
+          title: '数据导出'
+        },
+        component: () => import('@/view/components/tables/data_export.vue')
+      },
+      {
+        path: 'cis_api',
+        name: 'cis_api',
+        meta: {
+          icon: 'md-key',
+          title: 'CIS接口',
+          href: 'http://172.16.102.69:8080/'
+        }
+      }
+    ]
+  },
+  {
+    path: '',
     name: 'diy',
     meta: {
       title: '智慧燃气',

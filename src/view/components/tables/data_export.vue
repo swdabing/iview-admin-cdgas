@@ -1,0 +1,89 @@
+<template>
+  <div>
+    <Card>
+      <tables ref="tables" searchable search-place="top" :columns='COLUMNS' stripe></tables>
+      <Button style="margin: 10px 0;" type="primary" @click="exportExcel">导出为Csv文件</Button>
+    </Card>
+
+    <Modal v-model="modal1"
+        title="从CIS数据库导出到Excel"
+        @on-ok="ok"
+        @on-cancel="cancel">
+        <p>{{MSG}}</p>
+    </Modal>
+  </div>
+</template>
+<script>
+import Tables from '_c/tables'
+export default {
+  components: {
+    Tables
+  },
+  data () {
+    return {
+      modal1: false,
+      MSG: '',
+      SQL_NAME: '',
+      SQL_VALUE: '',
+      COLUMNS: [
+        {
+          title: '序号',
+          key: 'TIMESTAMP'
+        },
+        {
+          title: '导出类型',
+          key: 'SQL_NAME'
+        },
+        {
+          title: '状态',
+          key: 'SQL_VALUE',
+          render: (h, params) => {
+            const row = params.row
+            const color = 'primary'
+            const text = '导出'
+
+            return h(
+              'Tag',
+              {
+                props: {
+                  type: 'dot',
+                  color: color
+                },
+                nativeOn: {
+                  click: (e) => {
+                    this.modal1 = true
+                    this.SQL_NAME = row.SQL_NAME
+                    this.SQL_VALUE = row.SQL_VALUE
+                    this.MSG = '是否导出数据【' + row.SQL_NAME + '】？'
+                  }
+                }
+              },
+              text
+            )
+          }
+        }
+      ]
+    }
+  },
+  methods: {
+    ok () {
+      let host = 'http://172.16.102.69:8080'
+      let url = host + '/export?type=file&fileName=' + this.SQL_NAME + '&sql=' + encodeURIComponent(this.SQL_VALUE)
+      window.open(url)
+      // window.location.href = url
+    },
+    cancel () {
+      // this.$Message.info('Clicked cancel')
+    },
+    exportExcel () {
+      this.$refs.tables.exportCsv({
+        filename: `table-${(new Date()).valueOf()}.csv`
+      })
+    }
+  },
+  mounted () {
+    this.$refs.tables.setSql('select * from SQLS where 1=1',
+      ' order by cast(TIMESTAMP AS int)')
+  }
+}
+</script>
