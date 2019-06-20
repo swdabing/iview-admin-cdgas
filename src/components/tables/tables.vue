@@ -242,6 +242,7 @@ export default {
       getTotal(this.sql + this.filter + this.order).then(res => {
         this.total = res.data[0].TOTAL
       })
+      this.page = 1
       this.handleTableData()
     },
     // 子对象初始化时设置sql
