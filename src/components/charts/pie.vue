@@ -48,8 +48,25 @@ export default {
             type: 'pie',
             radius: '55%',
             center: ['50%', '60%'],
+            selectedMode: 'single',
             data: pieData, // this.value,
+            label: {
+              normal: {
+                formatter: '{b}: {c}',
+                position: 'top'
+              }
+            },
             itemStyle: {
+              color: function (params) {
+                var colorList = [
+                  '#19be6b', '#ed3f14', '#ff9900',
+                  '#2d8cf0', '#B5C334', '#FCCE10',
+                  '#E87C25', '#27727B', '#C1232B',
+                  '#FE8463', '#9BCA63', '#FAD860', '#F3A43B', '#60C0DD',
+                  '#D7504B', '#C6E579', '#F4E001', '#F0805A', '#26C0C0'
+                ]
+                return colorList[params.dataIndex]
+              },
               emphasis: {
                 shadowBlur: 10,
                 shadowOffsetX: 0,
