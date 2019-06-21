@@ -455,7 +455,7 @@ export default [
           icon: 'ios-bug',
           title: '错误收集'
         },
-        component: () => import('@/view/single-page/error-logger.vue')
+        component: () => import('@/view/single-page/error-logger-cdgas.vue')
       }
     ]
   },

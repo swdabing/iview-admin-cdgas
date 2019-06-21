@@ -29,11 +29,21 @@ export const getTableData = (sql, page, pageSize) => {
 }
 
 /**
+ * 执行操作
+ */
+export const execute = (sql) => {
+  return axios.request({
+    url: 'db?sql=' + encodeURIComponent(sql),
+    method: 'get'
+  })
+}
+
+/**
  * 保存报错
  */
 export const saveErrorLogger = info => {
   return axios.request({
-    url: 'db?sql=insert into ERR_LOG values(sysdate,\'' + JSON.stringify(info) + '\')',
+    url: 'db?sql=insert into ERR_LOG values(\'' + info.type + '\',\'' + (info.code === 'undefined' ? info.code : '') + '\',\'' + JSON.stringify(info) + '\',\'' + info.url + '\',sysdate)',
     method: 'get'
   })
 }
