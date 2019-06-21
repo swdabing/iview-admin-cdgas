@@ -35,7 +35,7 @@ export default {
         },
         {
           title: '状态',
-          key: 'SQL_GROUP',
+          key: 'SQL_STAT',
           render: (h, params) => {
             const row = params.row
             const color = 'primary'
