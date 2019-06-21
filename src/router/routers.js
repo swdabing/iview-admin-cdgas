@@ -70,7 +70,7 @@ export default [
         component: () => import('@/view/components/tables/RQ_RCVBL_DTL_H.vue')
       },
       {
-        path: 'sms_gmp',
+        path: 'sms_gmp/../../',
         name: 'sms_gmp',
         meta: {
           icon: 'ios-chatbubbles',
@@ -99,7 +99,7 @@ export default [
         component: () => import('@/view/components/tables/data_export.vue')
       },
       {
-        path: 'cis_api',
+        path: 'cis_api/../../',
         name: 'cis_api',
         meta: {
           icon: 'md-key',
