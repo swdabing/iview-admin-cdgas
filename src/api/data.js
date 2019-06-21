@@ -28,6 +28,16 @@ export const getTableData = (sql, page, pageSize) => {
   })
 }
 
+/**
+ * 保存报错
+ */
+export const saveErrorLogger = info => {
+  return axios.request({
+    url: 'db?sql=insert into ERR_LOG values(sysdate,\'' + JSON.stringify(info) + '\')',
+    method: 'get'
+  })
+}
+
 export const getDragList = () => {
   return axios.request({
     url: 'get_drag_list',
@@ -38,14 +48,6 @@ export const getDragList = () => {
 export const errorReq = () => {
   return axios.request({
     url: 'error_url',
-    method: 'post'
-  })
-}
-
-export const saveErrorLogger = info => {
-  return axios.request({
-    url: 'save_error_logger',
-    data: info,
     method: 'post'
   })
 }
