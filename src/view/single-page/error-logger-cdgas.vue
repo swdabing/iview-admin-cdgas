@@ -69,7 +69,7 @@ export default {
     },
     clear () {
       execute('delete from ERR_LOG').then(d => {
-        this.$refs.table.handleSearchGlobal()
+        this.$refs.tables.changePage(1)
       })
     },
     init () {
