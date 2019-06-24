@@ -35,7 +35,7 @@ export default {
           title: '编码',
           render: (h, { row }) => {
             return (
-              <span>{ row.code === 0 ? '-' : row.code }</span>
+              <span>{ row.CODE === 0 ? '-' : row.CODE }</span>
             )
           }
         },
