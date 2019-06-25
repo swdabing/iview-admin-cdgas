@@ -68,8 +68,17 @@ export default {
       })
     },
     clear () {
-      execute('delete from ERR_LOG').then(d => {
-        this.$refs.tables.changePage(1)
+      this.$Modal.confirm({
+        title: '清空确认',
+        content: '<p>所有错误日志将被清空！</p><p>是否继续？</p>',
+        onOk: () => {
+          execute('delete from ERR_LOG').then(d => {
+            this.$refs.tables.changePage(1)
+          })
+        },
+        onCancel: () => {
+          this.$Message.info('取消')
+        }
       })
     },
     init () {
