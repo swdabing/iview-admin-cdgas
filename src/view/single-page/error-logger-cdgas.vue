@@ -87,7 +87,7 @@ export default {
     }
   },
   activated () {
-    this.init()
+    this.$refs.tables.changePage(1)
   },
   mounted () {
     this.init()
