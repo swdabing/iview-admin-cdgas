@@ -4,6 +4,7 @@
       <Badge :dot="!!messageUnreadCount">
         <Avatar :src="userAvator"/>
       </Badge>
+      {{userName}}
       <Icon :size="18" type="md-arrow-dropdown"></Icon>
       <DropdownMenu slot="list">
         <DropdownItem name="message">
@@ -28,6 +29,11 @@ export default {
     messageUnreadCount: {
       type: Number,
       default: 0
+    }
+  },
+  data () {
+    return {
+      userName: this.$store.state.user.userName
     }
   },
   methods: {
