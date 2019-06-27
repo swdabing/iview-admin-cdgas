@@ -16,6 +16,18 @@ export const getToken = () => {
   else return false
 }
 
+export const USER_KEY = 'user'
+
+export const setUser = (user) => {
+  Cookies.set(USER_KEY, user, { expires: cookieExpires || 1 })
+}
+
+export const getUser = () => {
+  const user = Cookies.get(USER_KEY)
+  if (user) return user
+  else return false
+}
+
 export const hasChild = (item) => {
   return item.children && item.children.length !== 0
 }

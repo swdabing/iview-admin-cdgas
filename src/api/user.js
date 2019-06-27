@@ -1,4 +1,5 @@
 import axios from '@/libs/api.request'
+import { getUser } from '@/libs/util'
 
 export const login = ({ userName, password }) => {
   return axios.request({
@@ -30,11 +31,12 @@ export const getUserInfo = (token) => {
   //   },
   //   method: 'get'
   // })
+  const user = JSON.parse(getUser())
   const data = {
-    name: 'super_admin',
-    user_id: '1',
-    access: ['super_admin', 'admin'],
-    token: token,
+    name: user.REAL_NAME, // 'super_admin',
+    user_id: user.STAFF_NO, // '1',
+    access: user.DUTY, // ['super_admin', 'admin'],
+    token: user.SESSIONID, // token,
     avator: 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png'
   }
   return data
