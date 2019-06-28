@@ -37,19 +37,19 @@ module.exports = {
   // 设为false打包时不生成.map文件
   productionSourceMap: false
   // 这里写你调用接口的基础路径，来解决跨域，如果设置了代理，那你本地开发环境的axios的baseUrl要写为 '' ，即空字符串
-  /*
-  devServer: {
-    proxy: // 'http://cis.crcgas.com/cis/'
-          // 'http://mapp.crcgas.com:18001/'
-          // 'http://172.16.102.69:8080/'
-          {
-            '/api': {
-              target: 'http://172.16.102.69:8080/',
-              secure: false, // 接受 运行在 https 上的服务
-              changeOrigin: true,
-              pathRewrite: { '^/api': '' } // 重写请求路径，把/api用空替换掉
-            }
-          }
-  }
-  */
+
+  // devServer: {
+  //   disableHostCheck: true, // 通过域名访问
+  //   proxy: // 'http://cis.crcgas.com/cis/'
+  //         // 'http://mapp.crcgas.com:18001/'
+  //         // 'http://172.16.102.69:8080/'
+  //         {
+  //           '/api': {
+  //             target: 'http://172.16.102.69:8080/',
+  //             secure: false, // 接受 运行在 https 上的服务
+  //             changeOrigin: true,
+  //             pathRewrite: { '^/api': '' } // 重写请求路径，把/api用空替换掉
+  //           }
+  //         }
+  // }
 }
