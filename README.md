@@ -113,3 +113,11 @@ npm run build
 [MIT](http://opensource.org/licenses/MIT)
 
 Copyright (c) 2016-present, iView
+
+修改二级目录：
+1、src/router/index.js
+  base: '/cinp/',
+2、vue.config.js
+  const BASE_URL = process.env.NODE_ENV === 'production'
+  ? '/cinp/'
+  : '/cinp/'
