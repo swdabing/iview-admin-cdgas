@@ -61,7 +61,7 @@ export default [
     component: Main,
     children: [
       {
-        path: 'RQ_RCVBL_DTL_H/../../',
+        path: 'RQ_RCVBL_DTL_H',
         name: 'RQ_RCVBL_DTL_H',
         meta: {
           icon: 'md-grid',
@@ -70,7 +70,7 @@ export default [
         component: () => import('@/view/components/tables/RQ_RCVBL_DTL_H.vue')
       },
       {
-        path: 'sms_gmp/../../',
+        path: 'sms_gmp',
         name: 'sms_gmp',
         meta: {
           icon: 'ios-chatbubbles',
@@ -90,7 +90,7 @@ export default [
     component: Main,
     children: [
       {
-        path: 'data_export/../../',
+        path: 'data_export',
         name: 'data_export',
         meta: {
           icon: 'ios-list-box-outline',
@@ -99,7 +99,7 @@ export default [
         component: () => import('@/view/components/tables/data_export.vue')
       },
       {
-        path: 'cis_api/../../',
+        path: 'cis_api',
         name: 'cis_api',
         meta: {
           icon: 'md-key',
@@ -119,7 +119,7 @@ export default [
     component: Main,
     children: [
       {
-        path: 'bim/../../',
+        path: 'bim',
         name: 'bim',
         meta: {
           icon: 'ios-home',
@@ -128,7 +128,7 @@ export default [
         component: () => import('@/view/components/diy/bim.vue')
       },
       {
-        path: 'monitor/../../',
+        path: 'monitor',
         name: 'monitor',
         meta: {
           icon: 'ios-thermometer-outline',
@@ -137,7 +137,7 @@ export default [
         component: () => import('@/view/components/diy/monitor.vue')
       },
       {
-        path: 'camera/../../',
+        path: 'camera',
         name: 'camera',
         meta: {
           icon: 'md-videocam',
