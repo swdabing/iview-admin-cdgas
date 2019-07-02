@@ -93,7 +93,7 @@ export default [
         path: 'data_export',
         name: 'data_export',
         meta: {
-          icon: 'ios-list-box-outline',
+          icon: 'md-download',
           title: '数据导出'
         },
         component: () => import('@/view/components/tables/data_export.vue')
