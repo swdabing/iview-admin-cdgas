@@ -186,26 +186,25 @@ export default {
       return new Promise((resolve, reject) => {
         let contentItem = state.messageContentStore[msg_id]
         if (contentItem) {
-          resolve(contentItem)
+          resolve(contentItem.content)
         } else {
-          let content = {}
           for (let i = 0; i < state.messageUnreadList.length; i++) {
             if (state.messageUnreadList[i].msg_id === msg_id) {
-              content = state.messageUnreadList[i]
+              contentItem = state.messageUnreadList[i]
             }
           }
           for (let i = 0; i < state.messageReadedList.length; i++) {
             if (state.messageReadedList[i].msg_id === msg_id) {
-              content = state.messageReadedList[i]
+              contentItem = state.messageReadedList[i]
             }
           }
           for (let i = 0; i < state.messageTrashList.length; i++) {
             if (state.messageTrashList[i].msg_id === msg_id) {
-              content = state.messageTrashList[i]
+              contentItem = state.messageTrashList[i]
             }
           }
-          commit('updateMessageContentStore', { msg_id, content })
-          resolve(content)
+          commit('updateMessageContentStore', { msg_id, contentItem })
+          resolve(contentItem.content)
         }
       })
     },
