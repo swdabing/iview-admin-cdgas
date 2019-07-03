@@ -85,7 +85,7 @@ export default [
     name: 'middleware',
     meta: {
       title: 'CIS中间件',
-      icon: 'md-link'
+      icon: 'md-key'
     },
     component: Main,
     children: [
@@ -102,7 +102,7 @@ export default [
         path: 'cis_api',
         name: 'cis_api',
         meta: {
-          icon: 'md-key',
+          icon: 'ios-flag',
           title: 'CIS接口',
           href: 'http://172.16.102.69:8080/'
         }
