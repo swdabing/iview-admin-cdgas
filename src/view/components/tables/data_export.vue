@@ -15,6 +15,7 @@
 </template>
 <script>
 import Tables from '_c/tables'
+import { execute } from '@/api/data'
 export default {
   components: {
     Tables
@@ -68,6 +69,13 @@ export default {
       let host = 'http://172.16.102.69:8080'
       let url = host + '/export?type=file&fileName=' + this.row.SQL_NAME + '&sql=' + encodeURIComponent(this.row.SQL_VALUE)
       window.open(url)
+
+      let sql = 'insert into SYS_MSG values(' +
+        new Date().getTime() + ",sysdate,'" +
+        this.$store.state.user.access[0].NAME + "','导出【" +
+        this.row.SQL_NAME + "】','" +
+        decodeURIComponent(this.row.SQL_VALUE).replace(/'/g, "''") + "','readed')"
+      execute(sql)
     },
     cancel () {
       // this.$Message.info('Clicked cancel')
