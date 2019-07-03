@@ -49,57 +49,57 @@ export const logout = (token) => {
   // })
 }
 
-export const getUnreadCount = () => {
-  // return axios.request({
-  //   url: 'message/count',
-  //   method: 'get'
-  // })
-  return 0
-}
-
-export const getMessage = () => {
+export const getUnreadCount = (user) => {
+  let sql = "select count(*) as count from SYS_MSG where \"state\"='unread' and \"user\"='" + user + "'"
   return axios.request({
-    url: 'message/init',
+    url: 'db?sql=' + encodeURIComponent(sql) + '&isKeyValue=true',
     method: 'get'
   })
 }
 
-export const getContentByMsgId = msg_id => {
+export const getMessage = (user) => {
+  let sql = "select * from SYS_MSG where \"user\"='" + user + "'"
   return axios.request({
-    url: 'message/content',
-    method: 'get',
-    params: {
-      msg_id
+    url: 'db?sql=' + encodeURIComponent(sql) + '&isKeyValue=true',
+    method: 'get'
+  }).then(res => {
+    let data = res.data
+    let unreadList = []
+    let readedList = []
+    let trashList = []
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].state === 'unread') {
+        unreadList.push(data[i])
+      } else if (data[i].state === 'readed') {
+        readedList.push(data[i])
+      } else if (data[i].state === 'trash') {
+        trashList.push(data[i])
+      }
     }
+    return { data: {
+      unread: unreadList,
+      readed: readedList,
+      trash: trashList
+    } }
   })
 }
 
 export const hasRead = msg_id => {
+  let sql = "update SYS_MSG set \"state\"='readed' where \"msg_id\"='" + msg_id + "'"
   return axios.request({
-    url: 'message/has_read',
-    method: 'post',
-    data: {
-      msg_id
-    }
+    url: 'db?sql=' + encodeURIComponent(sql),
+    method: 'get'
   })
 }
 
 export const removeReaded = msg_id => {
+  let sql = "update SYS_MSG set \"state\"='trash' where \"msg_id\"='" + msg_id + "'"
   return axios.request({
-    url: 'message/remove_readed',
-    method: 'post',
-    data: {
-      msg_id
-    }
+    url: 'db?sql=' + encodeURIComponent(sql),
+    method: 'get'
   })
 }
 
 export const restoreTrash = msg_id => {
-  return axios.request({
-    url: 'message/restore',
-    method: 'post',
-    data: {
-      msg_id
-    }
-  })
+  return hasRead(msg_id)
 }

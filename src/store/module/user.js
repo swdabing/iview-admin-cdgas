@@ -3,7 +3,6 @@ import {
   // logout,
   getUserInfo,
   getMessage,
-  getContentByMsgId,
   hasRead,
   removeReaded,
   restoreTrash,
@@ -157,16 +156,15 @@ export default {
     },
     // 此方法用来获取未读消息条数，接口只返回数值，不返回消息列表
     getUnreadMessageCount ({ state, commit }) {
-      // getUnreadCount().then(res => {
-      //   const { data } = res
-      //   commit('setMessageCount', data)
-      // })
-      commit('setMessageCount', getUnreadCount())
+      getUnreadCount(state.access[0].NAME).then(res => {
+        const data = res.data[0].COUNT
+        commit('setMessageCount', data)
+      })
     },
     // 获取消息列表，其中包含未读、已读、回收站三个列表
     getMessageList ({ state, commit }) {
       return new Promise((resolve, reject) => {
-        getMessage().then(res => {
+        getMessage(state.access[0].NAME).then(res => {
           const { unread, readed, trash } = res.data
           commit('setMessageUnreadList', unread.sort((a, b) => new Date(b.create_time) - new Date(a.create_time)))
           commit('setMessageReadedList', readed.map(_ => {
@@ -190,11 +188,24 @@ export default {
         if (contentItem) {
           resolve(contentItem)
         } else {
-          getContentByMsgId(msg_id).then(res => {
-            const content = res.data
-            commit('updateMessageContentStore', { msg_id, content })
-            resolve(content)
-          })
+          let content = {}
+          for (let i = 0; i < state.messageUnreadList.length; i++) {
+            if (state.messageUnreadList[i].msg_id === msg_id) {
+              content = state.messageUnreadList[i]
+            }
+          }
+          for (let i = 0; i < state.messageReadedList.length; i++) {
+            if (state.messageReadedList[i].msg_id === msg_id) {
+              content = state.messageReadedList[i]
+            }
+          }
+          for (let i = 0; i < state.messageTrashList.length; i++) {
+            if (state.messageTrashList[i].msg_id === msg_id) {
+              content = state.messageTrashList[i]
+            }
+          }
+          commit('updateMessageContentStore', { msg_id, content })
+          resolve(content)
         }
       })
     },
