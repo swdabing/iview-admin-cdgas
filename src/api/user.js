@@ -58,7 +58,7 @@ export const getUnreadCount = (user) => {
 }
 
 export const getMessage = (user) => {
-  let sql = "select * from SYS_MSG where \"user\"='" + user + "'"
+  let sql = "select \"msg_id\",to_char(\"create_time\",'yyyy-mm-dd hh24:mi:ss') as \"create_time\",\"user\",\"title\",\"content\",\"state\" from SYS_MSG where \"user\"='" + user + "'"
   return axios.request({
     url: 'db?sql=' + encodeURIComponent(sql) + '&isKeyValue=true',
     method: 'get'
