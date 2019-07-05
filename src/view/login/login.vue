@@ -4,6 +4,7 @@
 
 <template>
   <div class="login">
+    <iframe style="width:100%;height:100%" src="http://172.16.102.69/base.html" frameborder="no"/>
     <div class="login-con">
       <Card icon="log-in" title="欢迎登录" :bordered="false">
         <div class="form-con">
