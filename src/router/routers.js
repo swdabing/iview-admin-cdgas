@@ -106,6 +106,15 @@ export default [
           title: 'CIS接口',
           href: 'http://172.16.102.69:8080/'
         }
+      },
+      {
+        path: 'file_server',
+        name: 'file_server',
+        meta: {
+          icon: 'md-filing',
+          title: '文件服务器',
+          href: 'http://172.16.102.69/download/'
+        }
       }
     ]
   },

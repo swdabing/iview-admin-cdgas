@@ -50,6 +50,7 @@ export default {
   middleware: 'middleware',
   data_export: 'data_export',
   cis_api: 'cis_api',
+  file_server: 'file_server',
   diy: 'diy',
   bim: 'bim',
   monitor: 'monitor',

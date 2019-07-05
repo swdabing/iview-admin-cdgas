@@ -50,6 +50,7 @@ export default {
   middleware: 'CIS中间件',
   data_export: '数据导出',
   cis_api: 'CIS接口',
+  file_server: '文件服务器',
   diy: '个人diy',
   bim: '智慧建筑',
   monitor: '环境监测',
