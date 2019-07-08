@@ -113,7 +113,7 @@ export default [
         meta: {
           icon: 'md-filing',
           title: '文件服务器',
-          href: 'http://172.16.102.69/download/'
+          href: '/download'
         }
       }
     ]
