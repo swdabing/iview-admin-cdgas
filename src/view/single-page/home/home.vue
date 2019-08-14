@@ -114,6 +114,7 @@ export default {
       return h + ':' + m + ':' + s
     },
     timeDiff (date) {
+      var diff = ''
       var days = Math.floor(date / (24 * 3600 * 1000))
       var leave1 = date % (24 * 3600 * 1000)
       var hours = Math.floor(leave1 / (3600 * 1000))
@@ -121,7 +122,19 @@ export default {
       var minutes = Math.floor(leave2 / (60 * 1000))
       var leave3 = leave2 % (60 * 1000)
       var seconds = Math.round(leave3 / 1000)
-      return days + '天' + hours + '小时' + minutes + '分' + seconds + '秒'
+      if (days !== 0) {
+        diff += days + '天'
+      }
+      if (hours !== 0) {
+        diff += hours + '时'
+      }
+      if (minutes !== 0) {
+        diff += minutes + '分'
+      }
+      if (seconds !== 0) {
+        diff += seconds + '秒'
+      }
+      return diff
     },
     init (table_name) {
       let date = this.formatDate(new Date()) // 格式化日期
@@ -136,44 +149,53 @@ export default {
           this.inforCardData[0].count = res.data[len - 1].TOTAL_ROWS
           this.inforCardData[1].count = res.data[len - 1].EFFECTIVE_ROWS
           this.inforCardData[2].count = res.data[len - 1].CREATE_ROWS
-
+          // 短信发送量
           this.barData = {}
           res.data.forEach(element => {
             let ymd = element.YMD
             this.barData[ymd] = element.CREATE_ROWS
           })
           this.$refs.bar.init(this.barData)
-
+          // 今日短信同步状态
           let step = res.data[len - 1]
-          if (step.BEGIN_SELECT != null && step.END_SELECT != null) {
-            this.stepCurrent = 1
-            this.step0 = '从' + this.formatTime(new Date(Date.parse(step.BEGIN_SELECT))) + '到' + this.formatTime(new Date(Date.parse(step.END_SELECT)))
-          } else {
+          // 不是今天
+          if (date !== this.formatDate(new Date(Date.parse(step.BEGIN_SELECT)))) {
             this.stepCurrent = 0
             this.stepStatus = 'error'
           }
-          if (step.BEGIN_INSERT != null && step.END_INSERT != null) {
-            this.stepCurrent = 2
-            this.step1 = '从' + this.formatTime(new Date(Date.parse(step.BEGIN_INSERT))) + '到' + this.formatTime(new Date(Date.parse(step.END_INSERT)))
-          } else {
+          // 查询cis短信
+          if (step.BEGIN_SELECT != null && step.END_SELECT != null) {
             this.stepCurrent = 1
-            this.stepStatus = 'error'
-          }
-          if (step.BEGIN_H2DTL != null && step.END_H2DTL != null) {
-            this.stepCurrent = 3
-            this.step2 = '从' + this.formatTime(new Date(Date.parse(step.BEGIN_H2DTL))) + '到' + this.formatTime(new Date(Date.parse(step.END_H2DTL)))
+            this.step0 = this.formatTime(new Date(Date.parse(step.BEGIN_SELECT))) + '到' + this.formatTime(new Date(Date.parse(step.END_SELECT))) + ' (' + this.timeDiff(new Date(Date.parse(step.END_SELECT)) - new Date(Date.parse(step.BEGIN_SELECT))) + ')'
+            // 写入本地临时表
+            if (step.BEGIN_INSERT != null && step.END_INSERT != null) {
+              this.stepCurrent = 2
+              this.step1 = this.formatTime(new Date(Date.parse(step.BEGIN_INSERT))) + '到' + this.formatTime(new Date(Date.parse(step.END_INSERT))) + ' (' + this.timeDiff(new Date(Date.parse(step.END_INSERT)) - new Date(Date.parse(step.BEGIN_INSERT))) + ')'
+              // 从历史表更新临时表状态并生成短信文件
+              if (step.BEGIN_H2DTL != null && step.END_H2DTL != null) {
+                this.stepCurrent = 3
+                this.step2 = this.formatTime(new Date(Date.parse(step.BEGIN_H2DTL))) + '到' + this.formatTime(new Date(Date.parse(step.END_H2DTL))) + ' (' + this.timeDiff(new Date(Date.parse(step.END_H2DTL)) - new Date(Date.parse(step.BEGIN_H2DTL))) + ')'
+                // 从临时表迁移到历史表或改状态
+                if (step.BEGIN_DTL2H != null && step.END_DTL2H != null) {
+                  this.stepCurrent = 3
+                  this.step3 = this.formatTime(new Date(Date.parse(step.BEGIN_DTL2H))) + '到' + this.formatTime(new Date(Date.parse(step.END_DTL2H))) + ' (' + this.timeDiff(new Date(Date.parse(step.END_DTL2H)) - new Date(Date.parse(step.BEGIN_DTL2H))) + ')'
+                  this.stepStatus = 'finish'
+                  this.stateMsg = '今日【' + step.TABLE_DESC + '】短信同步成功' + '，用时' + this.timeDiff(new Date(Date.parse(step.END_DTL2H)) - new Date(Date.parse(step.BEGIN_SELECT)))
+                  this.stateBadge = 'success'
+                } else {
+                  this.stepCurrent = 3
+                  this.stepStatus = 'error'
+                }
+              } else {
+                this.stepCurrent = 2
+                this.stepStatus = 'error'
+              }
+            } else {
+              this.stepCurrent = 1
+              this.stepStatus = 'error'
+            }
           } else {
-            this.stepCurrent = 2
-            this.stepStatus = 'error'
-          }
-          if (step.BEGIN_DTL2H != null && step.END_DTL2H != null) {
-            this.stepCurrent = 3
-            this.stepStatus = 'finish'
-            this.stateMsg = '今日【' + step.TABLE_DESC + '】短信同步成功' + '，用时' + this.timeDiff(new Date(Date.parse(step.END_DTL2H)) - new Date(Date.parse(step.BEGIN_SELECT)))
-            this.stateBadge = 'success'
-            this.step3 = '从' + this.formatTime(new Date(Date.parse(step.BEGIN_DTL2H))) + '到' + this.formatTime(new Date(Date.parse(step.END_DTL2H)))
-          } else {
-            this.stepCurrent = 3
+            this.stepCurrent = 0
             this.stepStatus = 'error'
           }
         }
@@ -188,7 +210,7 @@ export default {
         this.inforCardData[3].count = this.success
         this.inforCardData[4].count = this.fail
         this.inforCardData[5].count = this.overdue
-
+        // 短信发送占比
         this.pieData = [
           { value: this.success, name: '成功' },
           { value: this.fail, name: '失败' },
