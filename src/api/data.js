@@ -43,7 +43,7 @@ export const execute = (sql) => {
  */
 export const saveErrorLogger = info => {
   return axios.request({
-    url: 'db?sql=' + encodeURIComponent('insert into ERR_LOG values(\'' + info.type + '\',\'' + info.code + '\',\'' + info.mes + '\',\'' + info.url + '\',sysdate)'),
+    url: 'db?sql=' + encodeURIComponent('insert into ERR_LOG values(\'' + info.type + '\',\'' + info.code + '\',\'' + info.mes + '\',\'' + info.url + '\',sysdate)').replace(/%/g, '%25'),
     method: 'get'
   })
 }
