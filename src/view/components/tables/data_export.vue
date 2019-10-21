@@ -66,8 +66,8 @@ export default {
   },
   methods: {
     ok () {
-      // let host = 'http://172.16.126.25:8080/'
-      let host = 'http://10.121.54.18:8080/'
+      let host = 'http://172.16.126.26:8080/'
+      // let host = 'http://10.121.54.18:8080/'
       let url = host + 'export?type=file&fileName=' + this.row.SQL_NAME + '&sql=' + encodeURIComponent(this.row.SQL_VALUE)
       window.open(url)
 
