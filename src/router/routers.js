@@ -104,7 +104,7 @@ export default [
         meta: {
           icon: 'ios-flag',
           title: 'CIS接口',
-          href: 'http://172.16.126.25:8080/'
+          href: 'http://172.16.126.26:8080/'
         }
       },
       {
