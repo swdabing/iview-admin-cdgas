@@ -3,10 +3,10 @@ import axios from '@/libs/api.request'
 /**
  * 查询总数
  */
-export const getTotal = (sql) => {
+export const getTotal = (sql, db) => {
   let sqlTotal = 'select count(1) as TOTAL from (' + sql + ')'
   return axios.request({
-    url: 'db?sql=' + encodeURIComponent(sqlTotal) + '&isKeyValue=true',
+    url: 'db?sql=' + encodeURIComponent(sqlTotal) + '&isKeyValue=true' + ((db != null && db !== '') ? '&db=' + db : ''),
     method: 'get'
   })
 }
@@ -14,7 +14,7 @@ export const getTotal = (sql) => {
 /**
  * 查询分页结果
  */
-export const getTableData = (sql, page, pageSize) => {
+export const getTableData = (sql, page, pageSize, db) => {
   if (page == null) {
     page = 1
   }
@@ -23,7 +23,7 @@ export const getTableData = (sql, page, pageSize) => {
   }
   let sqlByPage = 'select * from (select a1.*,rownum rn from (' + sql + ') a1 where rownum <=' + (page * pageSize) + ') where rn>=' + ((page - 1) * pageSize + 1)
   return axios.request({
-    url: 'db?sql=' + encodeURIComponent(sqlByPage) + '&isKeyValue=true',
+    url: 'db?sql=' + encodeURIComponent(sqlByPage) + '&isKeyValue=true' + ((db != null && db !== '') ? '&db=' + db : ''),
     method: 'get'
   })
 }

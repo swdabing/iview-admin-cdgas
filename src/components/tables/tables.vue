@@ -159,6 +159,8 @@ export default {
       value: [],
       // 查询语句带where，如 select * from table where 1=1
       sql: '',
+      // 查询的数据库
+      db: '',
       // 查询条件
       filter: '',
       // 排序
@@ -239,16 +241,17 @@ export default {
     handleSearchGlobal () {
       // 全数据库查询的where语句
       this.filter = ' and ' + this.searchKey + " like '%" + this.searchValue + "%'"
-      getTotal(this.sql + this.filter + this.order).then(res => {
+      getTotal(this.sql + this.filter + this.order, this.db).then(res => {
         this.total = res.data[0].TOTAL
       })
       this.page = 1
       this.handleTableData()
     },
     // 子对象初始化时设置sql
-    setSql (sql, order) {
+    setSql (sql, order, db) {
       this.sql = sql
       this.order = order
+      this.db = db
     },
     // 选择页
     changePage (value) {
@@ -261,9 +264,9 @@ export default {
       this.handleTableData()
     },
     // 获取数据
-    handleTableData (sql) {
+    handleTableData () {
       this.$Loading.start()
-      getTableData(this.sql + this.filter + this.order, this.page, this.pageSize).then(res => {
+      getTableData(this.sql + this.filter + this.order, this.page, this.pageSize, this.db).then(res => {
         this.value = res.data
         this.$Loading.finish()
         this.insideTableData = this.value.map((item, index) => {
@@ -324,7 +327,7 @@ export default {
     this.handleColumns(this.columns)
     this.setDefaultSearchKey()
     this.$nextTick(() => {
-      getTotal(this.sql + this.filter + this.order).then(res => {
+      getTotal(this.sql + this.filter + this.order, this.db).then(res => {
         this.total = res.data[0].TOTAL
       })
       this.handleTableData()

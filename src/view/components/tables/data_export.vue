@@ -68,7 +68,7 @@ export default {
     ok () {
       let host = 'http://172.16.126.26:8080/'
       // let host = 'http://10.121.54.18:8080/'
-      let url = host + 'export?type=file&fileName=' + this.row.SQL_NAME + '&sql=' + encodeURIComponent(this.row.SQL_VALUE)
+      let url = host + 'export?type=file&db=cis&fileName=' + this.row.SQL_NAME + '&sql=' + encodeURIComponent(this.row.SQL_VALUE)
       window.open(url)
 
       let sql = 'insert into SYS_MSG values(' +
@@ -88,8 +88,8 @@ export default {
     }
   },
   mounted () {
-    this.$refs.tables.setSql('select * from MID_SQLS where 1=1',
-      ' order by cast(TIMESTAMP AS int)')
+    this.$refs.tables.setSql('select * from MID_SQLS where 1=1', ' order by cast(TIMESTAMP AS int)', 'local')
+    // this.$refs.tables.setSql('select * from CD_SQL where 1=1', ' order by cast(TIMESTAMP AS int)', 'cis')
   }
 }
 </script>
