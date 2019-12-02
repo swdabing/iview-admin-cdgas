@@ -54,5 +54,8 @@ export default {
   diy: 'diy',
   bim: 'bim',
   monitor: 'monitor',
-  camera: 'camera'
+  camera: 'camera',
+  kpi: 'kpi',
+  kpi_score: 'kpi_score',
+  kpi_calc: 'kpi_calc'
 }

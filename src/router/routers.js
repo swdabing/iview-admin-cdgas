@@ -119,6 +119,35 @@ export default [
     ]
   },
   {
+    path: '/kpi',
+    name: 'kpi',
+    meta: {
+      title: 'kpi',
+      icon: 'ios-home'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'kpi_score',
+        name: 'kpi_score',
+        meta: {
+          icon: 'ios-home',
+          title: 'KPI互评'
+        },
+        component: () => import('@/view/components/tables/kpi.vue')
+      },
+      {
+        path: 'kpi_calc',
+        name: 'kpi_calc',
+        meta: {
+          icon: 'ios-home',
+          title: '互评统计'
+        },
+        component: () => import('@/view/components/tables/kpi_calc.vue')
+      }
+    ]
+  },
+  {
     path: '/diy',
     name: 'diy',
     meta: {

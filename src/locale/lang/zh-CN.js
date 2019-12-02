@@ -54,5 +54,8 @@ export default {
   diy: '个人diy',
   bim: '智慧建筑',
   monitor: '环境监测',
-  camera: '视频监控'
+  camera: '视频监控',
+  kpi: 'KPI管理',
+  kpi_score: 'KPI打分',
+  kpi_calc: 'KPI统计'
 }
