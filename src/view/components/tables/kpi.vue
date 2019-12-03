@@ -51,7 +51,7 @@ export default {
       modal1: false,
       modal2: false,
       user: this.$store.state.user.userName,
-      disabled: this.$store.state.user.userName !== '廖玮',
+      disabled: this.$store.state.user.userName !== '廖玮' && this.$store.state.user.userName !== '陈海燕',
       row: {},
       COLUMNS: [
         {
