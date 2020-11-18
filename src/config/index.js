@@ -18,13 +18,15 @@ export default {
    */
   baseUrl: {
     dev:
-    'http://172.16.102.67:8080/',
+      // 'http://172.16.102.67:8080/',
+      'https://www.fastmock.site/mock/4fb932314f77c67a4b1544281faa857f/isun',
     // 'http://10.121.54.18:8080/',
     // 'http://cis.crcgas.com/',
     // 'http://mapp.crcgas.com:18001/process/notify/crcgas_cis@fiberhome/',
     // 'https://www.easy-mock.com/mock/5add9213ce4d0e69998a6f51/iview-admin/',
     pro:
-    'http://172.16.102.67:8080/'
+      // 'http://172.16.102.67:8080/'
+      'https://www.fastmock.site/mock/4fb932314f77c67a4b1544281faa857f/isun'
     // 'http://10.121.54.18:8080/'
     // 'http://mapp.crcgas.com:18001/process/notify/crcgas_cis@fiberhome/'
     // 'http://172.16.102.69:8080/cis/'

@@ -82,3 +82,14 @@ export const getTreeSelectData = () => {
     method: 'get'
   })
 }
+
+/**
+ * 获取组织架构树
+ */
+export const base_system_org = (id) => {
+  return axios.request({
+    url: 'base_system_org',
+    method: 'get',
+    params: { id: id }
+  })
+}

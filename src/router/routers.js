@@ -51,6 +51,135 @@ export default [
       }
     ]
   },
+
+  {
+    path: '',
+    name: 'base_system',
+    meta: {
+      icon: 'md-funnel',
+      title: '系统管理'
+    },
+    component: Main,
+    children: [
+      {
+        path: '',
+        name: 'base_system_org',
+        meta: {
+          icon: 'md-funnel',
+          title: '组织机构管理'
+        },
+        component: () => import('@/view/base/base_system/base_system_org.vue')
+      },
+      {
+        path: '',
+        name: 'base_system_role',
+        meta: {
+          icon: 'md-funnel',
+          notCache: false,
+          title: '角色管理'
+        },
+        component: () => import('@/view/multilevel/level-2-2/level-2-2-2.vue')
+      },
+      {
+        path: '',
+        name: 'base_system_user',
+        meta: {
+          icon: 'md-funnel',
+          notCache: false,
+          title: '用户管理'
+        },
+        component: () => import('@/view/multilevel/level-2-2/level-2-2-2.vue')
+      },
+      {
+        path: '',
+        name: 'base_system_logo',
+        meta: {
+          icon: 'md-funnel',
+          notCache: false,
+          title: 'logo切换'
+        },
+        component: () => import('@/view/multilevel/level-2-2/level-2-2-2.vue')
+      }
+    ]
+  },
+  /*
+  {
+    path: '',
+    name: 'base_parking',
+    meta: {
+      access: ['super_admin'],
+      icon: 'md-funnel',
+      showAlways: true,
+      title: '车场管理'
+    },
+    component: parentView,
+    children: [
+      {
+        path: '',
+        name: 'base_parking_info',
+        meta: {
+          icon: 'md-funnel',
+          title: '车场信息'
+        },
+        component: () => import('@/view/multilevel/level-2-2/level-2-2-1.vue')
+      },
+      {
+        path: '',
+        name: 'base_parking_area',
+        meta: {
+          icon: 'md-funnel',
+          title: '区域信息'
+        },
+        component: () => import('@/view/multilevel/level-2-2/level-2-2-2.vue')
+      },
+      {
+        path: '',
+        name: 'base_parking_channel',
+        meta: {
+          icon: 'md-funnel',
+          title: '通道管理'
+        },
+        component: () => import('@/view/multilevel/level-2-2/level-2-2-2.vue')
+      },
+      {
+        path: '',
+        name: 'base_parking_calc',
+        meta: {
+          icon: 'md-funnel',
+          title: '计费规则管理'
+        },
+        component: () => import('@/view/multilevel/level-2-2/level-2-2-2.vue')
+      },
+      {
+        path: '',
+        name: 'base_parking_dev_state',
+        meta: {
+          icon: 'md-funnel',
+          title: '设备状态'
+        },
+        component: () => import('@/view/multilevel/level-2-2/level-2-2-2.vue')
+      },
+      {
+        path: '',
+        name: 'base_parking_dev_alarm',
+        meta: {
+          icon: 'md-funnel',
+          title: '设备报警'
+        },
+        component: () => import('@/view/multilevel/level-2-2/level-2-2-2.vue')
+      },
+      {
+        path: '',
+        name: 'base_parking_remote_control',
+        meta: {
+          icon: 'md-funnel',
+          title: '遥控器配置'
+        },
+        component: () => import('@/view/multilevel/level-2-2/level-2-2-2.vue')
+      }
+    ]
+  },
+  */
   {
     path: '/sms',
     name: 'sms',

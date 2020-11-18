@@ -1,20 +1,21 @@
 import {
   login,
-  // logout,
+  logout,
   getUserInfo,
   getMessage,
+  getContentByMsgId,
   hasRead,
   removeReaded,
   restoreTrash,
   getUnreadCount
 } from '@/api/user'
-import { setToken, getToken, setUser } from '@/libs/util'
+import { setToken, getToken } from '@/libs/util'
 
 export default {
   state: {
     userName: '',
     userId: '',
-    avatorImgPath: '',
+    avatarImgPath: '',
     token: getToken(),
     access: '',
     hasGetInfo: false,
@@ -25,8 +26,8 @@ export default {
     messageContentStore: {}
   },
   mutations: {
-    setAvator (state, avatorPath) {
-      state.avatorImgPath = avatorPath
+    setAvatar (state, avatarPath) {
+      state.avatarImgPath = avatarPath
     },
     setUserId (state, id) {
       state.userId = id
@@ -80,91 +81,61 @@ export default {
           userName,
           password
         }).then(res => {
-          // const data = JSON.parse(res.data)
           const data = res.data
-          // console.log(data)
-          if (data.CODE === '0') {
-            commit('setToken', data.DATA.SESSIONID)// 保存cookie
-            commit('setAvator', 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png')
-            commit('setUserId', data.DATA.STAFF_NO)
-            commit('setUserName', data.DATA.REAL_NAME)
-            commit('setAccess', data.DATA.DUTY)
-            setUser(data.DATA)// 保存cookie
-          } else if (data.successful === true) {
-            commit('setToken', data.resultValue.SESSIONID)// 保存cookie
-            commit('setAvator', 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png')
-            commit('setUserId', data.resultValue.STAFF_NO)
-            commit('setUserName', data.resultValue.REAL_NAME)
-            commit('setAccess', data.resultValue.DUTY)
-            setUser(data.resultValue)// 保存cookie
-          } else {
-            if (data.resultHint != null) {
-              reject(data.resultHint)
-            } else {
-              reject(data.DESC)
-            }
-          }
+          commit('setToken', data.token)
           resolve()
         }).catch(err => {
-          reject(err.message)
+          reject(err)
         })
       })
     },
     // 退出登录
     handleLogOut ({ state, commit }) {
       return new Promise((resolve, reject) => {
-        // logout(state.token).then(() => {
-        //   commit('setToken', '')
-        //   commit('setAccess', [])
-        //   resolve()
-        // }).catch(err => {
-        //   reject(err)
-        // })
+        logout(state.token).then(() => {
+          commit('setToken', '')
+          commit('setAccess', [])
+          resolve()
+        }).catch(err => {
+          reject(err)
+        })
         // 如果你的退出登录无需请求接口，则可以直接使用下面三行代码而无需使用logout调用接口
-        commit('setToken', '')
-        commit('setAccess', [])
-        setUser('')
-        resolve()
+        // commit('setToken', '')
+        // commit('setAccess', [])
+        // resolve()
       })
     },
     // 获取用户相关信息
     getUserInfo ({ state, commit }) {
       return new Promise((resolve, reject) => {
-        // try {
-        //   getUserInfo(state.token).then(res => {
-        //     const data = res.data
-        //     commit('setAvator', data.avator)
-        //     commit('setUserName', data.name)
-        //     commit('setUserId', data.user_id)
-        //     commit('setAccess', data.access)
-        //     commit('setHasGetInfo', true)
-        //     resolve(data)
-        //   }).catch(err => {
-        //     reject(err)
-        //   })
-        // } catch (error) {
-        //   reject(error)
-        // }
-        const data = getUserInfo(state.token)
-        commit('setAvator', data.avator)
-        commit('setUserName', data.name)
-        commit('setUserId', data.user_id)
-        commit('setAccess', data.access)
-        commit('setHasGetInfo', true)
-        resolve(data)
+        try {
+          getUserInfo(state.token).then(res => {
+            const data = res.data
+            commit('setAvatar', data.avatar)
+            commit('setUserName', data.name)
+            commit('setUserId', data.user_id)
+            commit('setAccess', data.access)
+            commit('setHasGetInfo', true)
+            resolve(data)
+          }).catch(err => {
+            reject(err)
+          })
+        } catch (error) {
+          reject(error)
+        }
       })
     },
     // 此方法用来获取未读消息条数，接口只返回数值，不返回消息列表
     getUnreadMessageCount ({ state, commit }) {
-      getUnreadCount(state.access[0].NAME).then(res => {
-        const data = res.data[0].COUNT
-        commit('setMessageCount', data)
+      getUnreadCount().then(res => {
+        const { data } = res
+        commit('setMessageCount', data.count)
       })
     },
     // 获取消息列表，其中包含未读、已读、回收站三个列表
     getMessageList ({ state, commit }) {
       return new Promise((resolve, reject) => {
-        getMessage(state.access[0].NAME).then(res => {
+        getMessage().then(res => {
           const { unread, readed, trash } = res.data
           commit('setMessageUnreadList', unread.sort((a, b) => new Date(b.create_time) - new Date(a.create_time)))
           commit('setMessageReadedList', readed.map(_ => {
@@ -186,25 +157,13 @@ export default {
       return new Promise((resolve, reject) => {
         let contentItem = state.messageContentStore[msg_id]
         if (contentItem) {
-          resolve(contentItem.content)
+          resolve(contentItem)
         } else {
-          for (let i = 0; i < state.messageUnreadList.length; i++) {
-            if (state.messageUnreadList[i].msg_id === msg_id) {
-              contentItem = state.messageUnreadList[i]
-            }
-          }
-          for (let i = 0; i < state.messageReadedList.length; i++) {
-            if (state.messageReadedList[i].msg_id === msg_id) {
-              contentItem = state.messageReadedList[i]
-            }
-          }
-          for (let i = 0; i < state.messageTrashList.length; i++) {
-            if (state.messageTrashList[i].msg_id === msg_id) {
-              contentItem = state.messageTrashList[i]
-            }
-          }
-          commit('updateMessageContentStore', { msg_id, contentItem })
-          resolve(contentItem.content)
+          getContentByMsgId(msg_id).then(res => {
+            const content = res.data
+            commit('updateMessageContentStore', { msg_id, content })
+            resolve(content)
+          })
         }
       })
     },
